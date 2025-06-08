@@ -48,6 +48,32 @@ TWN *ctwl_insert_right(CTWL* list, float val){
 	return new_node;
 }
 
+TWN *ctwl_insert_left(CTWL* list, float val){
+	if (list == NULL){
+		return NULL;
+	}
+	TWN *new_node = (TWN*)malloc(sizeof(TWN));
+	if (new_node == NULL){
+		return NULL;
+	}
+	new_node->data = val;
+	if(list->cur == NULL){
+		list->cur = new_node;
+		new_node->next = new_node;
+		new_node->prev = new_node;
+		return new_node;
+	}
+	TWN *cur = list->cur;
+	TWN *left = cur->prev;
+	
+	new_node->prev = left;
+    new_node->next = cur;
+    left->next = new_node;
+    cur->prev = new_node;
+	
+	return new_node;
+}
+
 
 CTWL *ctwl_create_random(unsigned int size){
 	CTWL *list = ctwl_create_empty();
@@ -86,3 +112,4 @@ void ctwl_destroy(CTWL* list){
 	free(cur);
 	free(list);
 }
+
