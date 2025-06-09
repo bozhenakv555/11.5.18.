@@ -74,6 +74,27 @@ TWN *ctwl_insert_left(CTWL* list, float val){
 	return new_node;
 }
 
+#define CTWL_OK 1
+#define CTWL_FAIL 0
+
+char ctwl_delete(CTWL* list){
+	if (list == NULL || list->cur == NULL){
+		return CTWL_FAIL;
+	}
+	TWN *cur = list->cur;
+    if (cur == cur->next){
+    	free(cur);
+    	list->cur = NULL;
+    	return CTWL_OK;
+	}
+	TWN *left = cur->prev;
+	TWN *right = cur->next;
+	left->next = right;
+	right->prev = left;
+	list->cur = right;
+	free(cur);
+	return CTWL_OK;
+}
 
 CTWL *ctwl_create_random(unsigned int size){
 	CTWL *list = ctwl_create_empty();
