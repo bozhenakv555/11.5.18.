@@ -55,7 +55,7 @@ TWN *ctwl_insert_left(CTWL* list, float val){
 	TWN *new_node = (TWN*)malloc(sizeof(TWN));
 	if (new_node == NULL){
 		return NULL;
-	}
+    }
 	new_node->data = val;
 	if(list->cur == NULL){
 		list->cur = new_node;
@@ -97,7 +97,13 @@ char ctwl_delete(CTWL* list){
 }
 
 CTWL *ctwl_create_random(unsigned int size){
+	if (size == 0){
+		return NULL;
+	}
 	CTWL *list = ctwl_create_empty();
+	if (list == NULL){
+		return NULL;
+    }
 	for (unsigned int i = 0; i < size; i++){
 		float val = (float)(rand()%100);
 		ctwl_insert_right(list, val);
@@ -112,8 +118,12 @@ void ctwl_print(CTWL *list){
     }	
     TWN *temp_cur = list->cur;
     do{
+    	if (temp_cur == list->cur){
+    	printf("[%.1f] ", temp_cur->data);
+		}else{
     	printf("%.1f ", temp_cur->data);
-    	temp_cur = temp_cur->next;
+    	}
+		temp_cur = temp_cur->next;
 	}while (temp_cur != list->cur);
 }
 
@@ -136,14 +146,14 @@ void ctwl_destroy(CTWL* list){
 
 void ctwl_cur_step_right(CTWL *list){
 	if (list == NULL || list->cur == NULL){
-		return
+		return;
 	}
 	list->cur = list->cur->next;
 }
 
-void ctwl_cur_step_right(CTWL *list){
+void ctwl_cur_step_left(CTWL *list){
 	if (list == NULL || list->cur == NULL){
-		return
+		return;
 	}
 	list->cur = list->cur->prev;
 }
