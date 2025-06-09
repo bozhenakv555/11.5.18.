@@ -131,6 +131,7 @@ void ctwl_destroy(CTWL* list){
 	if (list == NULL || list->cur == NULL){
 		return;
 	}
+	
 	TWN *cur = list->cur;
 	TWN *temp_cur = cur->next;
 	
@@ -156,4 +157,37 @@ void ctwl_cur_step_left(CTWL *list){
 		return;
 	}
 	list->cur = list->cur->prev;
+}
+
+CTWL *ctwl_create_random_bimodal(unsigned int size){
+	if (size < 4){ 
+	    return NULL;
+	}
+    int attempts = 0;
+    int max_attempts = 100;
+    
+    while (attempts < max_attempts){
+    	CTWL *list = ctwl_create_random(size);
+    	if (list == NULL){
+		return NULL;
+        }
+        TWN *temp_cur = list->cur;
+        int max_count = 0;
+        do{
+        	float prev_val = temp_cur->prev->data;
+        	float cur_val = temp_cur->data;
+        	float next_val = temp_cur->next->data;
+        	if (cur_val > prev_val && cur_val > next_val){
+			max_count++;
+			}
+		    temp_cur = temp_cur->next;
+		}while(temp_cur != list->cur);
+		if (max_count == 2){
+			return list;
+		}else{
+			ctwl_destroy(list);
+			attempts++;
+		}
+	}
+	return NULL;
 }
