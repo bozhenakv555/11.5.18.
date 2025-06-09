@@ -113,3 +113,16 @@ void ctwl_destroy(CTWL* list){
 	free(list);
 }
 
+void ctwl_cur_step_right(CTWL *list){
+	if (list == NULL || list->cur == NULL){
+		return
+	}
+	list->cur = list->cur->next;
+}
+
+void ctwl_cur_step_right(CTWL *list){
+	if (list == NULL || list->cur == NULL){
+		return
+	}
+	list->cur = list->cur->prev;
+}
