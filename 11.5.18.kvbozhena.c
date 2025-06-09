@@ -191,3 +191,23 @@ CTWL *ctwl_create_random_bimodal(unsigned int size){
 	}
 	return NULL;
 }
+
+int main(){
+	srand(time(NULL));
+	unsigned int size = 10;
+	
+	CTWL *bimodal_list = ctwl_create_random_bimodal(size);
+	
+	if (bimodal_list == NULL){
+		printf("Nepodarilo sa vygenerovat bimodalny zoznam.\n");
+		return 1;
+	}
+	
+	printf("Vygenerovany bimodalny zoznam s %u prvkami:\n", size);
+	ctwl_print(bimodal_list);
+	
+    ctwl_destroy(bimodal_list);
+	
+    return 0;
+}
+
