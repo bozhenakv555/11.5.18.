@@ -118,11 +118,26 @@ void ctwl_print(CTWL *list){
     }	
     TWN *temp_cur = list->cur;
     do{
+    	int is_max = 0;
+    	float prev_val = temp_cur->prev->data;
+        float cur_val = temp_cur->data;
+        float next_val = temp_cur->next->data;
+        if (cur_val > prev_val && cur_val > next_val){
+		is_max = 1;
+		}
     	if (temp_cur == list->cur){
-    	printf("[%.1f] ", temp_cur->data);
+    		if(is_max == 1){
+    		printf("[*%.1f*] ", temp_cur->data);	
+			}else{
+    	    printf("[%.1f] ", temp_cur->data);
+    	    }
 		}else{
-    	printf("%.1f ", temp_cur->data);
-    	}
+			if(is_max == 1){
+    		printf("*%.1f* ", temp_cur->data);	
+			}else{
+    	    printf("%.1f ", temp_cur->data);
+    	    }
+    }
 		temp_cur = temp_cur->next;
 	}while (temp_cur != list->cur);
 }
